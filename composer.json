@@ -1,0 +1,42 @@
+{
+    "autoload": {
+        "psr-4": {
+            "LetoConvertLinks\\": "includes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LetoConvertLinks\\": "includes/"
+        }
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "wp-coding-standards/wpcs": "^3.1",
+        "squizlabs/php_codesniffer": "^3.10",
+        "sirbrillig/phpcs-variable-analysis": "2.11"
+    },
+    "scripts": {
+        "lint": "phpcs --standard=WordPress --exclude=Squiz.Commenting.VariableComment,Squiz.Commenting.ClassComment,Squiz.Commenting.FileComment,Squiz.Commenting.FunctionComment includes/",
+        "lint-fix": "phpcbf --standard=WordPress includes/",
+        "build": [
+            "bash -c 'rm -rf build/ && PLUGIN_NAME=$(basename $(pwd)) && mkdir -p build/$PLUGIN_NAME && rsync -av --exclude=\".*\" --exclude=\"create_zip.sh\" --exclude=\"build\" --exclude=\".gitignore\" --exclude=\"composer.json\" --exclude=\"composer.lock\" --exclude=\"tests\" --exclude=\"node_modules\" ./ build/$PLUGIN_NAME && cd build && zip -r $PLUGIN_NAME.zip $PLUGIN_NAME'"
+        ],
+        "autoload": [
+            "@composer dump-autoload"
+        ],
+        "pre-archive-cmd": [
+            "@composer install --no-dev --optimize-autoloader",
+            "@composer dump-autoload -o"
+        ],
+        "after-archive-cmd": [
+            "@composer install"
+        ]
+    },
+    "config": {
+        "platform-check": "php-only",
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}
