@@ -32,17 +32,12 @@ class Advanced_Search_Disabler_i18n {
 	 *
 	 * @since    1.0.0
 	 */
-	public function load_plugin_textdomain(): void
-    {
+	public function load_plugin_textdomain(): void {
 
 		load_plugin_textdomain(
 			'advanced-search-disabler',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
-
 	}
-
-
-
 }

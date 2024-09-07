@@ -16,7 +16,7 @@
  * Plugin Name:       Advanced Search Disabler
  * Plugin URI:        https://letowp.dev
  * Description:       Advanced Search Disabler allows you to specifically deactivate the search function on your WordPress website.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            LetoWPDev
  * Author URI:        https://letowp.dev/
  * License:           GPL-2.0+
@@ -36,13 +36,13 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'ADVANCED_SEARCH_DISABLER_VERSION', '1.0.0' );
+define( 'ADVANCED_SEARCH_DISABLER_VERSION', '1.0.1' );
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-advanced-search-disabler-activator.php
  */
-function activate_advanced_search_disabler() {
+function leto_activate_advanced_search_disabler(): void {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-advanced-search-disabler-activator.php';
 	Advanced_Search_Disabler_Activator::activate();
 }
@@ -51,13 +51,13 @@ function activate_advanced_search_disabler() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-advanced-search-disabler-deactivator.php
  */
-function deactivate_advanced_search_disabler() {
+function leto_deactivate_advanced_search_disabler(): void {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-advanced-search-disabler-deactivator.php';
 	Advanced_Search_Disabler_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_advanced_search_disabler' );
-register_deactivation_hook( __FILE__, 'deactivate_advanced_search_disabler' );
+register_activation_hook( __FILE__, 'leto_activate_advanced_search_disabler' );
+register_deactivation_hook( __FILE__, 'leto_deactivate_advanced_search_disabler' );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -74,10 +74,11 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-advanced-search-disabler.p
  *
  * @since    1.0.0
  */
-function run_advanced_search_disabler() {
+function leto_run_advanced_search_disabler(): void {
 
 	$plugin = new Advanced_Search_Disabler();
 	$plugin->run();
 
 }
-run_advanced_search_disabler();
+
+leto_run_advanced_search_disabler();

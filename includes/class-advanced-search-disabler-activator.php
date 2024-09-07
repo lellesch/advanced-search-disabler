@@ -29,9 +29,7 @@ class Advanced_Search_Disabler_Activator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function activate(): void
-    {
-        Advanced_Search_Disabler_Settings::install_default_settings();
+	public static function activate(): void {
+		Advanced_Search_Disabler_Settings::install_default_settings();
 	}
-
 }

@@ -78,7 +78,6 @@ class Advanced_Search_Disabler {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -97,35 +96,33 @@ class Advanced_Search_Disabler {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function load_dependencies(): void
-    {
+	private function load_dependencies(): void {
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-advanced-search-disabler-loader.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-advanced-search-disabler-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-advanced-search-disabler-i18n.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-advanced-search-disabler-settings.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-advanced-search-disabler-i18n.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-advanced-search-disabler-settings.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-advanced-search-disabler-admin.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-advanced-search-disabler-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-advanced-search-disabler-public.php';
+		require_once plugin_dir_path( __DIR__ ) . 'public/class-advanced-search-disabler-public.php';
 
 		$this->loader = new Advanced_Search_Disabler_Loader();
-
 	}
 
 	/**
@@ -137,13 +134,11 @@ class Advanced_Search_Disabler {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function set_locale(): void
-    {
+	private function set_locale(): void {
 
 		$plugin_i18n = new Advanced_Search_Disabler_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -153,19 +148,18 @@ class Advanced_Search_Disabler {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_admin_hooks(): void
-    {
+	private function define_admin_hooks(): void {
 
 		$plugin_admin = new Advanced_Search_Disabler_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
-        $this->loader->add_action('admin_init', $plugin_admin, 'register_settings');
-        $this->loader->add_action('admin_menu', $plugin_admin, 'advanced_search_disabler_menu');
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'advanced_search_disabler_menu' );
 
-        $this->loader->add_action('widgets_init', $plugin_admin, 'advanced_search_disabler_widget');
-        $this->loader->add_action('admin_bar_menu', $plugin_admin, 'advanced_search_disabler_remove_admin_bar_menu_search', 99);
+		$this->loader->add_action( 'widgets_init', $plugin_admin, 'advanced_search_disabler_widget' );
+		$this->loader->add_action( 'admin_bar_menu', $plugin_admin, 'advanced_search_disabler_remove_admin_bar_menu_search', 99 );
 	}
 
 	/**
@@ -175,19 +169,17 @@ class Advanced_Search_Disabler {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_public_hooks(): void
-    {
+	private function define_public_hooks(): void {
 
 		$plugin_public = new Advanced_Search_Disabler_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
-        $this->loader->add_action('parse_query', $plugin_public, 'advanced_search_disabler_parse_query', 99);
-        $this->loader->add_action('init', $plugin_public, 'advanced_search_disabler_init', 99);
+		$this->loader->add_action( 'parse_query', $plugin_public, 'advanced_search_disabler_parse_query', 99 );
+		$this->loader->add_action( 'init', $plugin_public, 'advanced_search_disabler_init', 99 );
 
-
-        $this->loader->add_filter('posts_where', $plugin_public, 'advanced_search_disabler_pre_get_posts',10,2);
+		$this->loader->add_filter( 'posts_where', $plugin_public, 'advanced_search_disabler_pre_get_posts', 10, 2 );
 	}
 
 	/**
@@ -195,8 +187,7 @@ class Advanced_Search_Disabler {
 	 *
 	 * @since    1.0.0
 	 */
-	public function run(): void
-    {
+	public function run(): void {
 		$this->loader->run();
 	}
 
@@ -207,8 +198,7 @@ class Advanced_Search_Disabler {
 	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_plugin_name(): string
-    {
+	public function get_plugin_name(): string {
 		return $this->plugin_name;
 	}
 
@@ -218,8 +208,7 @@ class Advanced_Search_Disabler {
 	 * @since     1.0.0
 	 * @return    Advanced_Search_Disabler_Loader    Orchestrates the hooks of the plugin.
 	 */
-	public function get_loader(): Advanced_Search_Disabler_Loader
-    {
+	public function get_loader(): Advanced_Search_Disabler_Loader {
 		return $this->loader;
 	}
 
@@ -229,9 +218,7 @@ class Advanced_Search_Disabler {
 	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
 	 */
-	public function get_version(): string
-    {
+	public function get_version(): string {
 		return $this->version;
 	}
-
 }
