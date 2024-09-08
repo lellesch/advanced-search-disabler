@@ -121,7 +121,7 @@ class Advanced_Search_Disabler_Admin
     {
 
         add_options_page(
-            __('Advanced Search Disabler Settings', $this->plugin_name),
+            esc_html__('Advanced Search Disabler Settings', 'advanced-search-disabler'),
             'Advanced Search Disabler',
             'manage_options',
             $this->plugin_name . '-settings',
