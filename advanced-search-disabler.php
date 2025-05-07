@@ -16,7 +16,7 @@
  * Plugin Name:       Advanced Search Disabler
  * Plugin URI:        https://letowp.dev
  * Description:       Advanced Search Disabler allows you to specifically deactivate the search function on your WordPress website.
- * Version:           1.0.4
+ * Version:           1.0.5
  * Author:            LetoWPDev
  * Author URI:        https://letowp.dev/
  * License:           GPL-2.0+
@@ -36,7 +36,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'ADVANCED_SEARCH_DISABLER_VERSION', '1.0.4' );
+define( 'ADVANCED_SEARCH_DISABLER_VERSION', '1.0.5' );
 
 /**
  * The code that runs during plugin activation.
